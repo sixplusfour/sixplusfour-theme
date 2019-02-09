@@ -11,4 +11,7 @@ function my_theme_enqueue_styles() {
         wp_get_theme()->get('Version')
     );
 }
+
+// allow unfiltered uploads for some roles
+define( 'ALLOW_UNFILTERED_UPLOADS', true );
 ?>
