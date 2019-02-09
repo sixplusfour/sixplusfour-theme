@@ -7,6 +7,7 @@
  * @author: George Reith, sixplusfour.co.uk
  **/
 
+var $ = jQuery.noConflict();
 var uid = 0;
 var canvasSupport;
 
@@ -33,7 +34,7 @@ yepnope({
   // Load canvas drawing libraries
   yep: [spfScriptDir + "TweenMax.js", spfScriptDir + "easeljs.js", spfScriptDir + "tweenjs.js", spfScriptDir + "movieclip.js"],
   // Load flash libraries
-  nope: ["../common/js/swfobject.js"],
+  nope: [spfScriptDir + "swfobject.js"],
   complete: function() {
     $(function() { // Wait until DOM has loaded
       // Find and load interactivities
@@ -99,7 +100,7 @@ var initInteractive = function() {
     if (root) {
       // URI of script to load
       resource = spfAnimationDir + $self.data("canvas-uri");
-      // Callback once script has loaded 
+      // Callback once script has loaded
       callback = function() {
         var width = lib.properties.width;
         var height = lib.properties.height;

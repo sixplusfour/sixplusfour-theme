@@ -2,7 +2,7 @@
 // tell spf-init where the theme's js files are located
 function set_js_globals() {
     $root = get_stylesheet_directory_uri();
-    print "<script>var spfScriptDir = \"" . $root . "/js/\";</script>\n";
+    print "<script>window.spfScriptDir = \"" . $root . "/js/\";</script>\n";
 }
 add_action('wp_head', 'set_js_globals', 1);
 
