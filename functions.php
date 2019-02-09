@@ -1,15 +1,37 @@
 <?php
-add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
-function my_theme_enqueue_styles() {
-
+add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
+function enqueue_scripts() {
+    $version = wp_get_theme()->get('Version');
     $parent_style = 'parent-style';
+    $root = get_stylesheet_directory_uri();
 
     wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
     wp_enqueue_style( 'child-style',
-        get_stylesheet_directory_uri() . '/style.css',
+        $root . '/style.css',
         array( $parent_style ),
-        wp_get_theme()->get('Version')
+        $version
     );
+    wp_enqueue_style( 'spf-ui',
+        $root . '/css/spf-ui.css',
+        array(),
+        $version
+    );
+    wp_enqueue_script( 'yepnope',
+        $root . '/js/yepnope.js',
+        array(),
+        $version
+    );
+    wp_enqueue_script( 'jquery',
+        'http://code.jquery.com/jquery-1.11.0.min.js',
+        array(),
+        $version
+    );
+    wp_enqueue_script( 'spf-init',
+        $root . '/js/spf-init.js',
+        array( 'yepnope' ),
+        $version
+    );
+
 }
 
 // allow unfiltered uploads for some roles
