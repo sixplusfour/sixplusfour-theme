@@ -28,10 +28,6 @@ function enqueue_scripts() {
         array(),
         $version
     );
-    wp_enqueue_script( 'jquery',
-        'http://code.jquery.com/jquery-1.11.0.min.js',
-        array()
-    );
     wp_enqueue_script( 'spf-init',
         $root . '/js/spf-init.js',
         array( 'yepnope', 'jquery' ),
