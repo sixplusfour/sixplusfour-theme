@@ -218,3 +218,8 @@
 .spf-icon-tracker:before {
   content: "\e602";
 }
+.clearfix:after {
+  display: block;
+  content: "";
+  clear: both;
+}
