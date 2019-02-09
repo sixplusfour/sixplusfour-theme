@@ -1,4 +1,11 @@
 <?php
+// tell spf-init where the theme's js files are located
+function set_js_globals() {
+    $root = get_stylesheet_directory_uri();
+    print "<script>var spfScriptDir = \"" . $root . "/js/\";</script>\n";
+}
+add_action('wp_head', 'set_js_globals', 1);
+
 add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
 function enqueue_scripts() {
     $version = wp_get_theme()->get('Version');
@@ -23,12 +30,11 @@ function enqueue_scripts() {
     );
     wp_enqueue_script( 'jquery',
         'http://code.jquery.com/jquery-1.11.0.min.js',
-        array(),
-        $version
+        array()
     );
     wp_enqueue_script( 'spf-init',
         $root . '/js/spf-init.js',
-        array( 'yepnope' ),
+        array( 'yepnope', 'jquery' ),
         $version
     );
 
