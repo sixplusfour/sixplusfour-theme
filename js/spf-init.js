@@ -140,8 +140,10 @@ var initInteractive = function() {
             var $button = $(this);
             if (playing) {
               TweenLite.ticker.removeEventListener("tick");
+              exportRoot.movie.stop();
             } else {
               TweenLite.ticker.addEventListener("tick", stage.update, stage);
+              exportRoot.movie.play();
             }
           });
         }
