@@ -139,10 +139,10 @@ var initInteractive = function() {
           $playButton.click(function() {
             var $button = $(this);
             if (playing) {
-              TweenLite.ticker.removeEventListener("tick");
+              createjs.Ticker.removeEventListener("tick");
               exportRoot.movie.stop();
             } else {
-              TweenLite.ticker.addEventListener("tick", stage.update, stage);
+              createjs.Ticker.addEventListener("tick", stage);
               exportRoot.movie.gotoAndPlay(1);
             }
           });
@@ -152,7 +152,8 @@ var initInteractive = function() {
         $self.find("li.spf-active:first-child a").trigger("click");
 
         // Let easelJS use TweenMax's ticker
-        TweenLite.ticker.addEventListener("tick", stage.update, stage);
+        createjs.Ticker.setFPS(lib.properties.fps);
+	    createjs.Ticker.addEventListener("tick", stage);
       }
     }
   } else {
