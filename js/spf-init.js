@@ -143,7 +143,7 @@ var initInteractive = function() {
               exportRoot.movie.stop();
             } else {
               TweenLite.ticker.addEventListener("tick", stage.update, stage);
-              exportRoot.movie.play();
+              exportRoot.movie.gotoAndPlay(1);
             }
           });
         }
