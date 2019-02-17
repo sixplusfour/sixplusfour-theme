@@ -1,9 +1,45 @@
 .spf-interactive {
   width: 496px;
+  margin: 1em 0 0.25em 0;
+  overflow: hidden;
+  position: relative;
 }
 
-.spf-navbar,
-.spf-moviebar {
+.spf-center {
+  float: left;
+  position: relative;
+  left: 50%;
+}
+
+.spf-center > .spf-section {
+  position: relative;
+  left: -50%;
+}
+
+.spf-section {
+  padding: 0.5em 0;
+  overflow: hidden;
+  float: left;
+}
+
+.spf-section + .spf-section {
+  margin-left: 0.5em;
+}
+
+.spf-section.spf-flip + .spf-section.spf-flip {
+  margin-right: 0.5em;
+  margin-left: 0em;
+}
+
+.spf-label {
+  text-align: center;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid #DADADA;
+  color: #6E7777;
+}
+
+.spf-navbar {
   float: left;
   background: #f7f7f7;
   color: #666;
@@ -22,30 +58,29 @@
   background-image: linear-gradient(to bottom,#fff,#eee);
 }
 
-.spf-moviebar {
-  width: 100%;
-}
-
 .spf-flip {
   float: right;
 }
 
-.spf-navbar:before, .spf-navbar:after,
-.spf-moviebar:before, .spf-moviebar:after {
+.spf-overlay {
+  position: absolute;
+  top: 0;
+  z-index: 99;
+}
+
+.spf-navbar:before, .spf-navbar:after {
   content: " ";
   display: table;
 }
 
-.spf-navbar:after,
-.spf-moviebar:after {
+.spf-navbar:after {
   clear: both;
 }
 
-.spf-navbar-nav,
-.spf-moviebar-nav {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.spf-navbar-nav {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style-type: none !important;
   float: left;
 }
 
@@ -53,8 +88,7 @@
   width: 100%;
 }
 
-.spf-navbar-nav > li,
-.spf-moviebar-nav > li {
+.spf-navbar-nav > li {
   float: left;
   position: relative;
 }
@@ -70,18 +104,17 @@
   margin-right: 1px;
 }
 
-.spf-navbar-nav > li > a,
-.spf-moviebar-nav > li > a {
+.spf-navbar-nav > li > a, .spf-navbar-nav > li.spf-play-button.spf-active > a {
   display: block;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  text-decoration: none;
+  text-decoration: none !important;
+  background-color: transparent;
   height: 41px;
   padding: 0 15px;
   line-height: 40px;
   color: #666;
-  font-size: 16px;
   font-family: ProximaNovaLight, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
   margin-top: -1px;
@@ -89,10 +122,12 @@
   border: 1px solid transparent;
   border-bottom-width: 0;
   text-shadow: 0 1px 0 #fff;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: inset none;
+  box-shadow: none;
 }
 
-.spf-navbar-nav:first-child > li:first-child > a,
-.spf-moviebar-nav:first-child > li:first-child > a {
+.spf-navbar-nav:first-child > li:first-child > a {
   -webkit-border-top-left-radius: 4px;
   -moz-border-radius-topleft: 4px;
   border-top-left-radius: 4px;
@@ -102,7 +137,7 @@
 }
 
 .spf-navbar-nav > li:hover > a, .spf-navbar-nav > li > a:focus,
-.spf-moviebar-nav > li:hover > a, .spf-moviebar-nav > li > a:focus {
+.spf-navbar-nav > li.spf-play-button:hover > a, .spf-navbar-nav > li.spf-play-button > a:focus {
   background-color: transparent;
   background-color: #FFF\9;
   color: #666;
@@ -117,8 +152,20 @@
   box-shadow: inset 0 2px 4px rgba(0,0,0,.1);
 }
 
+.spf-navbar-nav > li.spf-play-button:hover > a, .spf-navbar-nav > li.spf-play-button > a:focus {
+  background: transparent;
+}
+
 .spf-navbar-nav > li.spf-active {
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(206,244,205,1);
+  -moz-box-shadow: inset 0 2px 4px rgba(206,244,205,1);
   box-shadow: 0px 0px 20px 0px rgba(206,244,205,1);
+}
+
+.spf-navbar-nav > li.spf-play-button.spf-active {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: inset none;
+  box-shadow: none;
 }
 
 .spf-navbar-nav > li.spf-active > a {
@@ -133,39 +180,7 @@
   text-shadow: none;
 }
 
-.spf-moviebar-nav > li.spf-timeline {
-  height: 20px;
-  float: none;
-  width: auto;
-  padding: 10px 10px;
-  position: relative;
-  overflow: hidden;
-}
-
-.spf-timeline:before {
-  content: '';
-  height: 20px;
-  width: 100%;
-  background: #FFF;
-  border: 1px solid #AAA;
-  margin-top: -1px;
-  display: block;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
-
-.spf-timeline-progress {
-  display: block;
-  height: 100%;
-  background: #CEF4CD;
-  margin: -21px 0 0 1px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
-
-.spf-play-button:before {
+.spf-navbar-nav > li.spf-play-button > a:before {
   content: "\e600";
   font-family: 'spf-icons';
   speak: none;
@@ -180,7 +195,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.spf-play-button.active:before {
+.spf-navbar-nav > li.spf-play-button.spf-active > a:before {
   content: "\e601";
 }
 
@@ -217,9 +232,4 @@
 }
 .spf-icon-tracker:before {
   content: "\e602";
-}
-.clearfix:after {
-  display: block;
-  content: "";
-  clear: both;
 }
