@@ -57,7 +57,7 @@ var callbacks = {};
 var relayEvent = function(e) {
   e.preventDefault();
   var $self = $(this);
-  var params = $self.data("params") || [];
+  var params = JSON.parse($self.data("params")) || [];
   var eventNames = JSON.parse($self.data("event"));
   var target = (canvasSupport) ? e.delegateTarget.exportRoot : e.delegateTarget["data-export"];
   if (Array.isArray(eventNames)) {
