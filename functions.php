@@ -22,17 +22,20 @@ function enqueue_scripts() {
     wp_enqueue_style( 'spf-ui',
         $root . '/css/spf-ui.css',
         array(),
-        '1.1.0'
+        '1.1.0',
+        false
     );
     wp_enqueue_script( 'yepnope',
         $root . '/js/yepnope.js',
         array(),
-        '1.0.0'
+        '1.0.0',
+        true
     );
     wp_enqueue_script( 'spf-init',
         $root . '/js/spf-init.js',
         array( 'yepnope', 'jquery' ),
-        '1.0.0'
+        '1.0.0',
+        true
     );
 
 }
