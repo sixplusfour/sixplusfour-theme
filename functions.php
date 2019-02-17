@@ -2,7 +2,8 @@
 // tell spf-init where the theme's js files are located
 function set_js_globals() {
     $root = get_stylesheet_directory_uri();
-    print "<script>window.spfScriptDir = \"" . $root . "/js/\";</script>\n";
+    $upload_dir = wp_upload_dir()['baseurl'];
+    print "<script>window.spf = {animationDir:\"" . $upload_dir . "/\", scriptDir:\"" . $root . "/js/\"}</script>\n";
 }
 add_action('wp_head', 'set_js_globals', 1);
 
