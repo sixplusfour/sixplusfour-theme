@@ -57,10 +57,16 @@ var callbacks = {};
 var relayEvent = function(e) {
   e.preventDefault();
   var $self = $(this);
-  var name = $self.data("event");
   var params = $self.data("params") || [];
+  var eventNames = JSON.parse($self.data("event"));
   var target = (canvasSupport) ? e.delegateTarget.exportRoot : e.delegateTarget["data-export"];
-  sendEvent(name, params, target)
+  if (Array.isArray(eventNames)) {
+      eventNames.forEach(function(name, i) {
+          sendEvent(name, params[i], target);
+      });
+  } else {
+      sendEvent(eventNames, params, target);
+  }
 }
 
 /*
@@ -139,10 +145,10 @@ var initInteractive = function() {
           $playButton.click(function() {
             var $button = $(this);
             if (playing) {
-              createjs.Ticker.removeEventListener("tick");
+              TweenLite.ticker.removeEventListener("tick");
               exportRoot.movie.stop();
             } else {
-              createjs.Ticker.addEventListener("tick", stage);
+              TweenLite.ticker.addEventListener("tick", stage.update, stage);
               exportRoot.movie.gotoAndPlay(1);
             }
           });
